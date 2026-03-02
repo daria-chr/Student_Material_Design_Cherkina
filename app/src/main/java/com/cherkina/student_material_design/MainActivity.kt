@@ -27,6 +27,7 @@ import com.cherkina.student_material_design.data.Student
 import com.cherkina.student_material_design.ui.theme.Student_Material_DesignTheme
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Surface
 import com.cherkina.student_material_design.data.students
 
@@ -83,23 +84,32 @@ fun StudentItem(
     student: Student,
     modifier: Modifier= Modifier
 
-){
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(dimensionResource(R.dimen.padding_small))
-    ){
-        StudentIcon(student.imageResourceId)
-        StudentInformation(student.name,student.age)
+) {
+    Card(modifier=modifier) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            StudentIcon(student.imageResourceId)
+            StudentInformation(student.name, student.age)
+        }
     }
 }
 @Composable
 fun StudentApp() {
-    LazyColumn {
-        items(students) {
-            StudentItem(student = it)
+    Scaffold { it->
+        LazyColumn (contentPadding = it){
+            items(students){
+                StudentItem(
+                    student = it,
+                    modifier =  Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
         }
     }
+
 }
 
 @Preview
